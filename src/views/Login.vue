@@ -1,17 +1,24 @@
 <template>
   <div>
-      <form @submit.prevent="submitForm">
-        <div class="form-control">
-          <label for="email">E-Mail</label>
-          <input type="email" id="email" v-model.trim="email" />
-        </div>
-        <div class="form-control">
-          <label for="password">Password</label>
-          <input type="password" id="password" v-model.trim="password" />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <div v-if="!!error" title="An error occurred" @close="handleError">
+      <p>{{ error }}</p>
+    </div>
+    <div class="loader" v-if="isLoading" title="Authenticating...">
+      <img width="100" src="https://i.gifer.com/ZKZg.gif" alt="">
+    </div>
+
+    <form @submit.prevent="submitForm">
+      <div class="form-control">
+        <label for="email">E-Mail</label>
+        <input type="email" id="email" v-model.trim="email" />
       </div>
+      <div class="form-control">
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model.trim="password" />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -26,6 +33,7 @@ export default {
   },
   methods: {
     async submitForm() {
+      this.isLoading = true;
 
       const actionPayload = {
         email: this.email,
@@ -38,8 +46,9 @@ export default {
         this.$router.replace('/');
       } catch (err) {
         this.error = 'Failed to authenticate, try later.';
-        alert('error')
       }
+
+      this.isLoading = false;
     },
 
   },
@@ -47,6 +56,16 @@ export default {
 </script>
 
 <style scoped>
+.loader {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 100%;
+}
+
 form {
   margin: 1rem;
   padding: 1rem;
