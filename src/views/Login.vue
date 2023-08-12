@@ -1,20 +1,50 @@
 <template>
   <div>
-      <form>
+      <form @submit.prevent="submitForm">
         <div class="form-control">
           <label for="email">E-Mail</label>
-          <input type="email" id="email" />
+          <input type="email" id="email" v-model.trim="email" />
         </div>
         <div class="form-control">
           <label for="password">Password</label>
-          <input type="password" id="password"/>
+          <input type="password" id="password" v-model.trim="password" />
         </div>
-        <button>Login</button>
+        <button type="submit">Login</button>
       </form>
       </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      isLoading: false,
+      error: null,
+    };
+  },
+  methods: {
+    async submitForm() {
 
+      const actionPayload = {
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        await this.$store.dispatch('login', actionPayload);
+
+        this.$router.replace('/');
+      } catch (err) {
+        this.error = 'Failed to authenticate, try later.';
+        alert('error')
+      }
+    },
+
+  },
+};
+</script>
 
 <style scoped>
 form {
