@@ -18,7 +18,7 @@ export default {
     });
 
   },
-  logout(context) {
+  logout(context) {      
     // for api
     localStorage.removeItem('token');
     localStorage.removeItem('userId');

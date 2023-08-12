@@ -7,7 +7,7 @@
       <img width="100" src="https://i.gifer.com/ZKZg.gif" alt="">
     </div>
 
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm" v-if="!isAuthenticated">
       <div class="form-control">
         <label for="email">E-Mail</label>
         <input type="email" id="email" v-model.trim="email" />
@@ -19,11 +19,16 @@
       <button type="submit">Login</button>
     </form>
 
+    <div v-else>You're already authenticated <p></p> <button @click="logout">Log out?</button></div>
+
     <p v-if="!formIsValid">Please enter a valid email and password (must be at least 16 characters long).</p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
+
 export default {
   data() {
     return {
@@ -66,7 +71,14 @@ export default {
 
       this.isLoading = false;
     },
+    logout() {
+      this.$store.dispatch('logout');
 
+      this.$router.replace('/');
+    }
+  },
+  computed: {
+    ...mapGetters(["isAuthenticated"]),
   },
 };
 </script>
