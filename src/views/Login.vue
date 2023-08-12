@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!!error" title="An error occurred" @close="handleError">
+    <div v-if="!!error" title="An error occurred">
       <p>{{ error }}</p>
     </div>
     <div class="loader" v-if="isLoading" title="Authenticating...">
@@ -18,6 +18,8 @@
       </div>
       <button type="submit">Login</button>
     </form>
+
+    <p v-if="!formIsValid">Please enter a valid email and password (must be at least 16 characters long).</p>
   </div>
 </template>
 
@@ -29,10 +31,24 @@ export default {
       password: '',
       isLoading: false,
       error: null,
+      formIsValid: true,
     };
   },
   methods: {
     async submitForm() {
+      this.formIsValid = true;
+      this.error = null;
+
+      if (
+        this.email === '' ||
+        !this.email.includes('@') ||
+        this.password.length < 16 ||
+        !/[A-Za-z]/.test(this.password)
+      ) {
+        this.formIsValid = false;
+        return;
+      }
+
       this.isLoading = true;
 
       const actionPayload = {
