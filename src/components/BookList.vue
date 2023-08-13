@@ -1,12 +1,16 @@
 <template>
     <div>
-            <table v-if="booksState.length" cellpadding="15">
-                <tr v-for="book in books" :key="book.id">
-                    <td><img :src="book?.thumb" width="50" /></td>
-                    <td>{{ book?.title }}</td>
-                    <td>{{ book?.authors?.length && book.authors?.join(', ') }}</td>
-                </tr>
-            </table>
+        <table v-if="booksState.length" cellpadding="15">
+            <tr v-for="book in books" :key="book.id">
+                <td><img :src="book?.thumb" width="50" /></td>
+                <td>
+                    <RouterLink :to="`book/${book.id}`">
+                        {{ book?.title }}
+                    </RouterLink>
+                </td>
+                <td>{{ book?.authors?.length && book.authors?.join(', ') }}</td>
+            </tr>
+        </table>
         <h3 v-else>No books found.</h3>
     </div>
 </template>
