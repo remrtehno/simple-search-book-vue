@@ -1,8 +1,8 @@
 export default {
-    books(state) {
-      return state.books;
-    },
-    book(state) {
-      return state.book;
-    },
-  };
+  books(state) {
+    return state.books
+  },
+  book(state) {
+    return state.book
+  }
+}

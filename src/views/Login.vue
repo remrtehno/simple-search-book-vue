@@ -4,7 +4,7 @@
       <p>{{ error }}</p>
     </div>
     <div class="loader" v-if="isLoading" title="Authenticating...">
-      <img width="100" src="https://i.gifer.com/ZKZg.gif" alt="">
+      <img width="100" src="https://i.gifer.com/ZKZg.gif" alt="" />
     </div>
 
     <form @submit.prevent="submitForm" v-if="!isAuthenticated">
@@ -19,17 +19,18 @@
       <button type="submit">Login</button>
     </form>
 
-    <div class="success" v-else>You're already authenticated <button class="logout" @click="logout">Log out?</button>
+    <div class="success" v-else>
+      You're already authenticated <button class="logout" @click="logout">Log out?</button>
     </div>
 
-    <p class="warning" v-if="!formIsValid">Please enter a valid email and password (must be at least 16 characters long).
+    <p class="warning" v-if="!formIsValid">
+      Please enter a valid email and password (must be at least 16 characters long).
     </p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -38,13 +39,13 @@ export default {
       password: '',
       isLoading: false,
       error: null,
-      formIsValid: true,
-    };
+      formIsValid: true
+    }
   },
   methods: {
     async submitForm() {
-      this.formIsValid = true;
-      this.error = null;
+      this.formIsValid = true
+      this.error = null
 
       if (
         this.email === '' ||
@@ -52,37 +53,37 @@ export default {
         this.password.length < 16 ||
         !/[A-Za-z]/.test(this.password)
       ) {
-        this.formIsValid = false;
-        return;
+        this.formIsValid = false
+        return
       }
 
-      this.isLoading = true;
+      this.isLoading = true
 
       const actionPayload = {
         email: this.email,
-        password: this.password,
-      };
-
-      try {
-        await this.$store.dispatch('login', actionPayload);
-
-        this.$router.replace('/');
-      } catch (err) {
-        this.error = 'Failed to authenticate, try later.';
+        password: this.password
       }
 
-      this.isLoading = false;
+      try {
+        await this.$store.dispatch('login', actionPayload)
+
+        this.$router.replace('/')
+      } catch (err) {
+        this.error = 'Failed to authenticate, try later.'
+      }
+
+      this.isLoading = false
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch('logout')
 
-      this.$router.replace('/');
+      this.$router.replace('/')
     }
   },
   computed: {
-    ...mapGetters(["isAuthenticated"]),
-  },
-};
+    ...mapGetters(['isAuthenticated'])
+  }
+}
 </script>
 
 <style scoped>
@@ -135,10 +136,9 @@ textarea:focus {
 
 .form-control {
   margin-bottom: 1rem;
-
 }
 
-button[type="submit"] {
+button[type='submit'] {
   padding: 0.5rem 1.5rem;
   background: #28a1d5;
   border-radius: 0.25rem;
@@ -152,7 +152,6 @@ button[type="submit"] {
   color: #664d03;
   background-color: #ffe69c;
   border-radius: 0.5rem;
-
 }
 
 .error {

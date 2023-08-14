@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <main>
@@ -9,13 +7,11 @@
   </main>
 </template>
 
-
 <script>
 export default {
-
   methods: {
     async setFilters(query) {
-      await this.$store.dispatch('books/loadBooks', { query });
+      await this.$store.dispatch('books/loadBooks', { query })
     }
   }
 }
