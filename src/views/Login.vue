@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="!!error" title="An error occurred">
+  <div class="login-form-container">
+    <div class="error" v-if="!!error" title="An error occurred">
       <p>{{ error }}</p>
     </div>
     <div class="loader" v-if="isLoading" title="Authenticating...">
@@ -19,9 +19,11 @@
       <button type="submit">Login</button>
     </form>
 
-    <div v-else>You're already authenticated <p></p> <button @click="logout">Log out?</button></div>
+    <div class="success" v-else>You're already authenticated <button class="logout" @click="logout">Log out?</button>
+    </div>
 
-    <p v-if="!formIsValid">Please enter a valid email and password (must be at least 16 characters long).</p>
+    <p class="warning" v-if="!formIsValid">Please enter a valid email and password (must be at least 16 characters long).
+    </p>
   </div>
 </template>
 
@@ -97,16 +99,15 @@ export default {
 form {
   margin: 1rem;
   padding: 1rem;
-}
-
-.form-control {
-  margin: 0.5rem 0;
+  width: 20rem;
+  text-align: center;
 }
 
 label {
   font-weight: bold;
   margin-bottom: 0.5rem;
   display: block;
+  text-align: left;
 }
 
 input,
@@ -123,5 +124,62 @@ textarea:focus {
   border-color: #3d008d;
   background-color: #faf6ff;
   outline: none;
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+
+}
+
+button[type="submit"] {
+  padding: 0.5rem 1.5rem;
+  background: #28a1d5;
+  border-radius: 0.25rem;
+  border: 0;
+}
+
+.warning {
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: #664d03;
+  background-color: #ffe69c;
+  border-radius: 0.5rem;
+
+}
+
+.error {
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+  background-color: #ed3535;
+  border-radius: 0.5rem;
+}
+
+.success {
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+  background-color: #268c3e;
+  border-radius: 0.5rem;
+}
+
+.logout {
+  border: 0;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 900;
+  color: white;
+  background: #1e552b;
 }
 </style>

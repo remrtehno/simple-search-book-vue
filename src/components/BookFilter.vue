@@ -1,7 +1,9 @@
 <template>
     <div>
       <h2>Find Your Book</h2>
-      <input :value="query" @change="setQuery" />
+      <label>
+        <input :value="query" @input.trim="setQuery"  />
+      </label>
     </div>
   </template>
   
@@ -26,22 +28,25 @@
   <style scoped>
   h2 {
     margin: 0.5rem 0;
-  }
-  
-  .filter-option {
-    margin-right: 1rem;
-  }
-  
-  .filter-option label,
-  .filter-option input {
-    vertical-align: middle;
-  }
-  
-  .filter-option label {
-    margin-left: 0.25rem;
-  }
-  
-  .filter-option.active label {
+    text-align: center;
+    margin-bottom: 1rem;
     font-weight: bold;
   }
+  input {
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    width: 20rem;
+    font-size: .9375rem
+  }
+
+  label {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+
+
   </style>
