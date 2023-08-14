@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h2>{{ book?.title }}</h2>
-        <img :src="book?.thumb">
-        <p>{{ book?.authors?.join(', ') }}</p>
-        <div>{{ book?.description }}</div>
+        <h2 class="book-title">{{ book?.title }}</h2>
+        <img class="book-image" :src="book?.thumb">
+        <p class="book-author">{{ book?.authors?.join(', ') }}</p>
+        <div class="book-desc">{{ book?.description }}</div>
     </div>
 </template>
   
